@@ -11,31 +11,27 @@ const dApp = {
     }
     return false;
   },
-/*  collectVars: async function() {
+ 
+  /* To obtain all the Registered Real Estate (token_id), puts it on Webpage*/
+
+  collectVars: async function() {
     // get land tokens
     this.tokens = [];
     this.totalSupply = await this.BlockEstateContract.methods.totalSupply().call();
 
     // fetch json metadata from IPFS (name, description, image, etc)
-    const fetchMetadata = (reference_uri) => fetch(`https://gateway.pinata.cloud/ipfs/${reference_uri.replace("ipfs://", "")}`, { mode: "cors" }).then((resp) => resp.json());
-
+    const fetchMetadata = (reference_uri) =>fetch(`https://gateway.pinata.cloud/ipfs/${reference_uri.replace("ipfs://", "")}`, { mode: "cors" }).then((resp) => resp.json());
+  // For Each Registered Land
     for (let i = 1; i <= this.totalSupply; i++) {
       try {
         const token_uri = await this.BlockEstateContract.methods.tokenURI(i).call();
         console.log('token uri', token_uri)
+        // Line Below will Obtain the URI data from Pinata
         const token_json = await fetchMetadata(token_uri);
-        console.log('token json', token_json)
+        console.log('token json', token_json);
         this.tokens.push({
           tokenId: i,
-          highestBid: Number(await this.marsContract.methods.highestBid(i).call()),
-          auctionEnded: Boolean(await this.marsContract.methods.auctionEnded(i).call()),
-          pendingReturn: Number(await this.marsContract.methods.pendingReturn(i, this.accounts[0]).call()),
-          auction: new window.web3.eth.Contract(
-            this.auctionJson,
-            await this.marsContract.methods.auctions(i).call(),
-            { defaultAccount: this.accounts[0] }
-          ),
-          owner: await this.marsContract.methods.ownerOf(i).call(),
+      
           ...token_json
         });
       } catch (e) {
@@ -43,20 +39,13 @@ const dApp = {
       }
     }
   },
-  setAdmin: async function() {
-    // if account selected in MetaMask is the same as owner then admin will show
-    if (this.isAdmin) {
-      $(".dapp-admin").show();
-    } else {
-      $(".dapp-admin").hide();
-    }
-  },
+ // deleted setAdmin(reference marsdapp)
   updateUI: async function() {
     console.log("updating UI");
     // refresh variables
     await this.collectVars();
-
-    $("#dapp-tokens").html("");
+    //this.tokens has been initialized
+    $("#All_Estates").html("");
     this.tokens.forEach((token) => {
       try {
         let endAuction = `<a token-id="${token.tokenId}" class="dapp-admin" style="display:none;" href="#" onclick="dApp.endAuction(event)">End Auction</a>`;
@@ -88,7 +77,7 @@ const dApp = {
 
     // hide or show admin functions based on contract ownership
     this.setAdmin();
-  },
+  },/*
   bid: async function(event) {
     const tokenId = $(event.target).attr("token-id");
     const wei = Number($(event.target).prev().val());
