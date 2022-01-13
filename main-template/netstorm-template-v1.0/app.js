@@ -92,13 +92,13 @@ const dApp = {
       M.toast({ html: "Transaction Mined! Refreshing UI..." });
       await this.updateUI();
     });
-  },/*
+  },
   withdraw: async function(event) {
     const tokenId = $(event.target).attr("token-id") - 1;
     await this.tokens[tokenId].auction.methods.withdraw().send({from: this.accounts[0]}).on("receipt", async (receipt) => {
       M.toast({ html: "Transaction Mined! Refreshing UI..." });
       await this.updateUI();
-    });
+    });/*
   },
   registerLand: async function() {
     const name = $("#dapp-register-name").val();
