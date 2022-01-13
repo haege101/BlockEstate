@@ -77,22 +77,22 @@ const dApp = {
 
     // hide or show admin functions based on contract ownership
     this.setAdmin();
-  },/*
+  },
   bid: async function(event) {
     const tokenId = $(event.target).attr("token-id");
     const wei = Number($(event.target).prev().val());
-    await this.marsContract.methods.bid(tokenId).send({from: this.accounts[0], value: wei}).on("receipt", async (receipt) => {
+    await this.BlockEstateContract.methods.bid(tokenId).send({from: this.accounts[0], value: wei}).on("receipt", async (receipt) => {
       M.toast({ html: "Transaction Mined! Refreshing UI..." });
       await this.updateUI();
     });
   },
   endAuction: async function(event) {
     const tokenId = $(event.target).attr("token-id");
-    await this.marsContract.methods.endAuction(tokenId).send({from: this.accounts[0]}).on("receipt", async (receipt) => {
+    await this.BlockEstateContract.methods.endAuction(tokenId).send({from: this.accounts[0]}).on("receipt", async (receipt) => {
       M.toast({ html: "Transaction Mined! Refreshing UI..." });
       await this.updateUI();
     });
-  },
+  },/*
   withdraw: async function(event) {
     const tokenId = $(event.target).attr("token-id") - 1;
     await this.tokens[tokenId].auction.methods.withdraw().send({from: this.accounts[0]}).on("receipt", async (receipt) => {
